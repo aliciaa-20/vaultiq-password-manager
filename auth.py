@@ -32,13 +32,18 @@ def register_user(username, password):
 
     conn.close()
 
+
 def login_user(username, password):
 
     conn = sqlite3.connect("vault.db")
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT password_hash FROM users WHERE username = ?",
+        """
+        SELECT id, password_hash
+        FROM users
+        WHERE username = ?
+        """,
         (username,)
     )
 
@@ -47,17 +52,18 @@ def login_user(username, password):
     conn.close()
 
     if result is None:
-        print("User not found!")
-        return False
+        print("Invalid username or password!")
+        return None
 
-    stored_hash = result[0]
+    user_id = result[0]
+    stored_hash = result[1]
 
     if bcrypt.checkpw(
         password.encode(),
         stored_hash.encode()
     ):
         print("Login successful!")
-        return True
+        return user_id
 
     print("Invalid username or password!")
-    return False
+    return None
