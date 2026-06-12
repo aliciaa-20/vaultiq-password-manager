@@ -1,7 +1,10 @@
 import sqlite3
-
+from encryption import encrypt_password
+from encryption import decrypt_password
 
 def add_credential(user_id, website, email, password, notes):
+
+    encrypted_password = encrypt_password(password)
 
     conn = sqlite3.connect("vault.db")
     cursor = conn.cursor()
@@ -12,7 +15,13 @@ def add_credential(user_id, website, email, password, notes):
         (user_id, website, email, password, notes)
         VALUES (?, ?, ?, ?, ?)
         """,
-        (user_id, website, email, password, notes)
+        (
+            user_id,
+            website,
+            email,
+            encrypted_password,
+            notes
+        )
     )
 
     conn.commit()
@@ -46,8 +55,11 @@ def view_credentials(user_id):
     print("\nStored Credentials:\n")
 
     for row in rows:
+
+        decrypted_password = decrypt_password(row[2])
+
         print(f"Website : {row[0]}")
         print(f"Email   : {row[1]}")
-        print(f"Password: {row[2]}")
+        print(f"Password: {decrypted_password}")
         print(f"Notes   : {row[3]}")
         print("-" * 30)
