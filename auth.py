@@ -1,8 +1,17 @@
 import sqlite3
 import bcrypt
 
+from encryption import generate_salt, derive_key
+
 
 def register_user(username, password):
+    if len(username) < 3:
+        raise ValueError("Username must be at least 3 characters.")
+
+    if len(password) < 8:
+        raise ValueError("Password must be at least 8 characters.")
+
+    salt = generate_salt()
 
     conn = sqlite3.connect("vault.db")
     cursor = conn.cursor()
@@ -15,32 +24,38 @@ def register_user(username, password):
     try:
         cursor.execute(
             """
-            INSERT INTO users (username, password_hash)
-            VALUES (?, ?)
+            INSERT INTO users (username, password_hash, salt)
+            VALUES (?, ?, ?)
             """,
             (
                 username,
-                hashed_password.decode()
+                hashed_password.decode(),
+                salt
             )
         )
 
         conn.commit()
-        print("User registered successfully!")
 
     except sqlite3.IntegrityError:
-        print("Username already exists!")
+        raise ValueError("Username already exists!")
 
-    conn.close()
+    finally:
+        conn.close()
 
 
 def login_user(username, password):
+    """
+    Returns (user_id, key) on success, (None, None) on failure.
+    `key` is the per-user Fernet key, derived fresh from the master
+    password and salt — never stored anywhere.
+    """
 
     conn = sqlite3.connect("vault.db")
     cursor = conn.cursor()
 
     cursor.execute(
         """
-        SELECT id, password_hash
+        SELECT id, password_hash, salt
         FROM users
         WHERE username = ?
         """,
@@ -52,18 +67,15 @@ def login_user(username, password):
     conn.close()
 
     if result is None:
-        print("Invalid username or password!")
-        return None
+        raise ValueError("Invalid username or password!")
 
-    user_id = result[0]
-    stored_hash = result[1]
+    user_id, stored_hash, salt = result
 
     if bcrypt.checkpw(
         password.encode(),
         stored_hash.encode()
     ):
-        print("Login successful!")
-        return user_id
+        key = derive_key(password, salt)
+        return user_id, key
 
-    print("Invalid username or password!")
-    return None
+    raise ValueError("Invalid username or password!")

@@ -4,3 +4,10 @@ __pycache__/
 vault.db
 .env
 secret.key
+test.py
+*.db
+.pytest_cache/
+.DS_Store
+*.egg-info/
+dist/
+build/
