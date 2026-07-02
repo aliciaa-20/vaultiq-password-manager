@@ -1,6 +1,5 @@
 import sqlite3
 import bcrypt
-
 def register_user(username, password):
 
     conn = sqlite3.connect("vault.db")
@@ -31,6 +30,12 @@ def register_user(username, password):
     except sqlite3.IntegrityError:
         conn.close()
         return False
+        print("User registered successfully!")
+
+    except sqlite3.IntegrityError:
+        print("Username already exists!")
+
+    conn.close()
 
 def login_user(username, password):
 
@@ -51,6 +56,7 @@ def login_user(username, password):
     conn.close()
 
     if result is None:
+        print("Invalid username or password!")
         return None
 
     user_id = result[0]
@@ -61,5 +67,9 @@ def login_user(username, password):
         stored_hash.encode()
     ):
         return user_id
+    print("Login successful!")
+    return user_id
+
+    print("Invalid username or password!")
 
     return None

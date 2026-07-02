@@ -27,7 +27,9 @@ def add_credential(user_id, website, email, password, notes):
     )
 
     conn.commit()
+
     log_activity(user_id, "Added new credential")
+
     conn.close()
 
     print("Credential added successfully!")
@@ -66,6 +68,7 @@ def view_credentials(user_id):
         print(f"Password: {decrypted_password}")
         print(f"Notes   : {row[3]}")
         print("-" * 30)
+
 
 def update_credential(user_id, credential_id, website, email, password, notes):
     encrypted_password = encrypt_password(password)

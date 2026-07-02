@@ -2,6 +2,7 @@ import sqlite3
 
 
 def create_database():
+
     conn = sqlite3.connect("vault.db")
     cursor = conn.cursor()
 
@@ -30,10 +31,9 @@ def create_database():
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
         )
-""")
+    """)
 
-
-    # Activity log table
+    # Activity Logs table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS activity_logs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
