@@ -1,0 +1,206 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="card p-4 shadow-sm">
+
+            <h2>Password Generator</h2>
+
+            <p class="text-muted">
+                Create strong passwords for your online accounts.
+            </p>
+
+            <hr>
+
+            <label class="form-label">
+                Password Length
+            </label>
+
+            <input
+                type="range"
+                class="form-range"
+                id="length"
+                min="8"
+                max="32"
+                value="16"
+                oninput="updateLength()">
+
+            <p class="mb-4">
+                Length :
+                <strong id="lengthValue">16</strong>
+            </p>
+
+            <div class="row mb-4">
+
+                <div class="col-md-6">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="uppercase"
+                            checked>
+
+                        <label class="form-check-label">
+                            Uppercase Letters
+                        </label>
+
+                    </div>
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="lowercase"
+                            checked>
+
+                        <label class="form-check-label">
+                            Lowercase Letters
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="numbers"
+                            checked>
+
+                        <label class="form-check-label">
+                            Numbers
+                        </label>
+
+                    </div>
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="symbols"
+                            checked>
+
+                        <label class="form-check-label">
+                            Symbols
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="input-group mb-3">
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="generatedPassword"
+                    readonly>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="generatePassword()">
+
+                    Generate
+
+                </button>
+
+            </div>
+
+            <button
+                class="btn btn-success"
+                onclick="copyPassword()">
+
+                Copy Password
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function updateLength(){
+
+    document.getElementById("lengthValue").innerText =
+    document.getElementById("length").value;
+
+}
+
+function generatePassword(){
+
+    let chars = "";
+
+    if(document.getElementById("uppercase").checked)
+        chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    if(document.getElementById("lowercase").checked)
+        chars += "abcdefghijklmnopqrstuvwxyz";
+
+    if(document.getElementById("numbers").checked)
+        chars += "0123456789";
+
+    if(document.getElementById("symbols").checked)
+        chars += "!@#$%^&*()_-+=<>?";
+
+    if(chars.length===0){
+
+        alert("Select at least one character type.");
+
+        return;
+
+    }
+
+    let length = parseInt(document.getElementById("length").value);
+
+    let password = "";
+
+    for(let i=0;i<length;i++){
+
+        password += chars.charAt(
+            Math.floor(Math.random()*chars.length)
+        );
+
+    }
+
+    document.getElementById("generatedPassword").value=password;
+
+}
+
+function copyPassword(){
+
+    let password =
+    document.getElementById("generatedPassword");
+
+    navigator.clipboard.writeText(password.value);
+
+    alert("Password copied successfully.");
+
+}
+
+window.onload=function(){
+
+    updateLength();
+    generatePassword();
+
+}
+
+</script>
+
+{% endblock %}

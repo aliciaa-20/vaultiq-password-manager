@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="row align-items-center" style="min-height:85vh;">
+
+    <div class="col-lg-6">
+
+        <h1 class="fw-bold">
+            VaultIQ
+        </h1>
+
+        <p class="text-muted mt-3">
+            A secure password management system built to safely store,
+            organize and protect your credentials using encryption.
+        </p>
+
+        <hr>
+
+        <div class="card p-3 mt-4">
+
+            <h5 class="mb-3">
+                Features
+            </h5>
+
+            <ul class="mb-0">
+
+                <li>Secure user authentication</li>
+                <li>Encrypted password storage</li>
+                <li>Add, edit and delete credentials</li>
+                <li>Search saved credentials</li>
+                <li>Password generator</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-5 offset-lg-1">
+
+        <div class="card auth-box">
+
+            <h2 class="auth-title">
+                Login
+            </h2>
+
+            <p class="auth-subtitle">
+                Enter your username and password to continue.
+            </p>
+
+            <form method="POST" action="/login">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <button class="btn btn-primary w-100">
+                    Login
+                </button>
+
+            </form>
+
+            <hr>
+
+            <div class="text-center">
+
+                Don't have an account?
+
+                <a href="/register">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

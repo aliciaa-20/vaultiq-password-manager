@@ -1,0 +1,206 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+            Dashboard
+        </h2>
+
+        <p class="text-muted mb-0">
+            Welcome to VaultIQ. Manage your passwords securely at one place.
+        </p>
+
+    </div>
+
+    <a href="/logout" class="btn btn-outline-danger">
+        Logout
+    </a>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+
+        <div class="card stat-card p-4 h-100">
+
+            <h6 class="text-muted">
+                Total Credentials
+            </h6>
+
+            <h2 class="fw-bold mt-2">
+                {{ stats.total }}
+            </h2>
+
+            <small class="text-muted">
+                Passwords currently stored
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card stat-card p-4 h-100">
+
+            <h6 class="text-muted">
+                Encryption
+            </h6>
+
+            <h2 class="fw-bold text-success mt-2">
+                AES
+            </h2>
+
+            <small class="text-muted">
+                Secure encryption enabled
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card stat-card p-4 h-100">
+
+            <h6 class="text-muted">
+                Session
+            </h6>
+
+            <h2 class="fw-bold text-primary mt-2">
+                Active
+            </h2>
+
+            <small class="text-muted">
+                User currently logged in
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-lg-8">
+
+        <div class="card p-4">
+
+            <h4 class="mb-4">
+                Quick Actions
+            </h4>
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <a href="/add" class="btn btn-primary">
+                    Add Credential
+                </a>
+
+                <a href="/vault" class="btn btn-success">
+                    Open Vault
+                </a>
+
+                <a href="/generator" class="btn btn-dark">
+                    Password Generator
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card p-4 mt-4">
+
+            <h4>
+                About VaultIQ
+            </h4>
+
+            <hr>
+
+            <p class="text-muted mb-0">
+
+                VaultIQ is a secure password management application developed
+                using Flask and SQLite. It allows users to store encrypted
+                website credentials, generate strong passwords, and organize
+                login information through a simple and user-friendly interface.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card p-4">
+
+            <h4>
+                Features
+            </h4>
+
+            <hr>
+
+            <ul class="list-group list-group-flush">
+
+                <li class="list-group-item">
+                    Secure Login & Registration
+                </li>
+
+                <li class="list-group-item">
+                    Encrypted Password Storage
+                </li>
+
+                <li class="list-group-item">
+                    Password Generator
+                </li>
+
+                <li class="list-group-item">
+                    Search Credentials
+                </li>
+
+                <li class="list-group-item">
+                    Copy & Show Password
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="card p-4 mt-4">
+
+            <h4>
+                Tips
+            </h4>
+
+            <hr>
+
+            <ul class="mb-0">
+
+                <li>Use unique passwords for every account.</li>
+
+                <li class="mt-2">Avoid sharing passwords.</li>
+
+                <li class="mt-2">Generate strong passwords regularly.</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr class="mt-5">
+
+<div class="text-center text-muted">
+
+    VaultIQ Password Manager • Version 1.0
+
+</div>
+
+{% endblock %}

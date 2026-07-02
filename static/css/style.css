@@ -1,0 +1,98 @@
+body{
+    background:#f5f7fb;
+    font-family:'Segoe UI',sans-serif;
+    color:#2c3e50;
+}
+
+.sidebar{
+    width:240px;
+    min-height:100vh;
+    background:#1f2937;
+    color:white;
+    padding:25px;
+    position:sticky;
+    top:0;
+}
+
+.logo{
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.nav-link{
+    color:#d1d5db;
+    margin-bottom:10px;
+    border-radius:8px;
+    padding:10px 15px;
+    transition:.25s;
+}
+
+.nav-link:hover{
+    background:#374151;
+    color:white;
+}
+
+.content{
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+.card{
+    border:none;
+    border-radius:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+.stat-card h2{
+    font-size:2rem;
+    margin:0;
+}
+
+.btn{
+    border-radius:8px;
+    padding:10px 18px;
+}
+
+.form-control,
+textarea{
+    border-radius:8px;
+}
+
+table{
+    background:white;
+}
+
+table th{
+    background:#eef2f7;
+}
+
+table td{
+    vertical-align:middle;
+}
+
+.auth-box{
+    max-width:420px;
+    margin:auto;
+    padding:30px;
+}
+
+.auth-title{
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.auth-subtitle{
+    color:#6c757d;
+    margin-bottom:25px;
+}
+
+footer{
+    color:#6c757d;
+    text-align:center;
+    padding:25px;
+}
